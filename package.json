@@ -1,0 +1,52 @@
+{
+  "name": "@form-crafter/themes",
+  "author": "Form Crafter",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "configs": "dev-configs-install",
+    "aliases": "dev-configs-aliases",
+    "prepare": "husky",
+    "format": "prettier --write ./src --config",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint -c ./eslint.config.js .",
+    "lint:tsc": "tsc --p ./tsconfig.json --noEmit true --emitDeclarationOnly false",
+    "fix": "npm run lint:eslint -- --fix && npm run lint:tsc"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fontsource/roboto": "^5.0.13",
+    "@form-crafter/core": "^0.1.7",
+    "@form-crafter/options-builder": "^0.0.10",
+    "@form-crafter/utils": "^0.0.12",
+    "@mui/icons-material": "^5.16.1",
+    "@mui/material": "^5.16.1",
+    "imask": "^7.6.1",
+    "libphonenumber-js": "^1.11.15",
+    "react-imask": "^7.6.1"
+  },
+  "devDependencies": {
+    "@form-crafter/dev-configs": "^0.3.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "sass": "^1.77.8",
+    "typescript": "~5.6.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.5.0"
+  },
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "prettier": "@form-crafter/dev-configs/dist/prettier.json"
+}
