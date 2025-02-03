@@ -1,4 +1,4 @@
-import { ComponentId, createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { ComponentId, createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Maybe } from '@form-crafter/utils'
 import { Box, Button, Typography } from '@mui/material'
@@ -38,7 +38,7 @@ const Multifield = memo(
                         {title && <Typography variant="h5">{title}</Typography>}
                         <Button onClick={onAddGroup}>{finalAddButtonText}</Button>
                     </Box>
-                    <GridComponent view={children}>
+                    <GridComponent viewTree={children}>
                         {(componentSchema, index) => (
                             <ResolverComponent
                                 {...componentSchema}
@@ -55,7 +55,7 @@ const Multifield = memo(
 
 Multifield.displayName = 'Multifield'
 
-export const multifieldModule = createFormCrafterComponent({
+export const multifieldModule = createComponentModule({
     name: 'multifield',
     label: 'Multifield',
     type: 'dynamic-container',

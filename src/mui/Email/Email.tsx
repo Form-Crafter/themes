@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { TextField } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -30,7 +30,7 @@ const Email = memo(
 
 Email.displayName = 'Email'
 
-export const emailModule = createFormCrafterComponent({
+export const emailModule = createComponentModule({
     name: 'email',
     label: 'Email',
     type: 'base',

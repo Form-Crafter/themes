@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps, SelectionOption } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, SelectionOption } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { toggleArrItem } from '@form-crafter/utils'
 import { Box, Checkbox as CheckboxBase, FormControl, FormControlLabel, FormLabel } from '@mui/material'
@@ -80,7 +80,7 @@ const Checkbox = memo(
 
 Checkbox.displayName = 'Checkbox'
 
-export const checkboxModule = createFormCrafterComponent({
+export const checkboxModule = createComponentModule({
     name: 'checkbox',
     label: 'Checkbox',
     type: 'base',

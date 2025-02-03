@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Box, FormControl, FormControlLabel, FormLabel, Radio as RadioBase } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -69,7 +69,7 @@ const Radio = memo(
 
 Radio.displayName = 'Radio'
 
-export const radioModule = createFormCrafterComponent({
+export const radioModule = createComponentModule({
     name: 'radio',
     label: 'Radio',
     type: 'base',

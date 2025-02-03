@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { forwardRef, memo, useMemo } from 'react'
 
@@ -37,7 +37,7 @@ const MaskInput = memo(
 
 MaskInput.displayName = 'MaskInput'
 
-export const maskInputModule = createFormCrafterComponent({
+export const maskInputModule = createComponentModule({
     name: 'mask-input',
     label: 'Mask Input',
     type: 'base',

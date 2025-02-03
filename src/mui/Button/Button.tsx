@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Button as ButtonBase } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -32,7 +32,7 @@ const Button = memo(
 
 Button.displayName = 'Button'
 
-export const buttonModule = createFormCrafterComponent({
+export const buttonModule = createComponentModule({
     name: 'button',
     label: 'Button',
     type: 'base',

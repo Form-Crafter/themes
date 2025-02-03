@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Box, Typography } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -14,7 +14,7 @@ const Group = memo(
         return (
             <Box ref={ref} gap={2}>
                 {renderTitle?.({ title }) || <Typography variant="h6">{title}</Typography>}
-                <GridComponent view={children} />
+                <GridComponent viewTree={children} />
             </Box>
         )
     }),
@@ -22,7 +22,7 @@ const Group = memo(
 
 Group.displayName = 'Group'
 
-export const groupModule = createFormCrafterComponent({
+export const groupModule = createComponentModule({
     name: 'group',
     label: 'Group',
     type: 'container',

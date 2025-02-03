@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { FormControl, InputLabel, ListItemText, MenuItem, Select as SelectBase } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
@@ -78,7 +78,7 @@ const Select = memo(
 
 Select.displayName = 'Select'
 
-export const selectModule = createFormCrafterComponent({
+export const selectModule = createComponentModule({
     name: 'select',
     label: 'Select',
     type: 'base',

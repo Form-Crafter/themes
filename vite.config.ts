@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 import aliases from './aliases.json'
+import pkg from './package.json'
 
 const getAlias = (path: string) => resolve(__dirname, path)
 
@@ -15,6 +16,9 @@ export default defineConfig({
             formats: ['es'],
         },
         target: ['esnext'],
+        rollupOptions: {
+            external: [...Object.keys(pkg.peerDependencies || {}), 'react/jsx-runtime'],
+        },
     },
     resolve: {
         alias: Object.entries(aliases).reduce(

@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { TextField } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -33,7 +33,7 @@ const Textarea = memo(
 
 Textarea.displayName = 'Textarea'
 
-export const textareaModule = createFormCrafterComponent({
+export const textareaModule = createComponentModule({
     name: 'textarea',
     label: 'Textarea',
     type: 'base',

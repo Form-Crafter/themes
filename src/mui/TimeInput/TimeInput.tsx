@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps, MaskOptions } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, MaskOptions } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import IMask from 'imask'
 import { forwardRef, memo, useMemo } from 'react'
@@ -62,7 +62,7 @@ const TimeInput = memo(
 
 TimeInput.displayName = 'TimeInput'
 
-export const timeInputModule = createFormCrafterComponent({
+export const timeInputModule = createComponentModule({
     name: 'time-input',
     label: 'Time input',
     type: 'base',

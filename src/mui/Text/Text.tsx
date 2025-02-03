@@ -1,4 +1,4 @@
-import { createFormCrafterComponent, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { forwardRef, memo } from 'react'
 
@@ -16,7 +16,7 @@ const Text = memo(
 
 Text.displayName = 'Text'
 
-export const textModule = createFormCrafterComponent({
+export const textModule = createComponentModule({
     name: 'text',
     label: 'Text',
     type: 'base',
