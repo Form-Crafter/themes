@@ -27,14 +27,14 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^5.0.13",
-    "@form-crafter/core": "^0.1.14",
+    "@form-crafter/core": "^0.1.15",
     "@form-crafter/options-builder": "^0.0.10",
     "@form-crafter/utils": "^0.0.14",
+    "@maskito/kit": "^3.2.1",
+    "@maskito/react": "^3.2.1",
     "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.1",
-    "imask": "^7.6.1",
-    "libphonenumber-js": "^1.11.15",
-    "react-imask": "^7.6.1"
+    "libphonenumber-js": "^1.11.15"
   },
   "devDependencies": {
     "@form-crafter/dev-configs": "^0.3.1",

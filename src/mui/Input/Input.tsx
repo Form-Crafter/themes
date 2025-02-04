@@ -1,7 +1,7 @@
 import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { TextField } from '@mui/material'
-import { forwardRef, memo } from 'react'
+import { ChangeEvent, forwardRef, memo } from 'react'
 
 const optionsBuilder = builders.group({
     value: builders.input().label('Значение').nullable(),
@@ -13,16 +13,16 @@ const optionsBuilder = builders.group({
 type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
 
 const Input = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { value, placeholder, label, disabled }, onChangeProperties }, ref) => {
+    forwardRef<HTMLInputElement, ComponentProps>(({ meta, properties: { value, placeholder, label, disabled }, onChangeProperties }, ref) => {
         return (
             <TextField
-                ref={ref}
+                inputRef={ref}
                 value={value}
                 name={meta.formKey}
                 disabled={disabled}
                 label={label}
                 placeholder={placeholder}
-                onChange={(e) => onChangeProperties({ value: e.target.value })}
+                onInput={(e: ChangeEvent<HTMLInputElement>) => onChangeProperties({ value: e.target.value })}
                 fullWidth
             />
         )

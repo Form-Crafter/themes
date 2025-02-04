@@ -1,13 +1,17 @@
-import { createComponentModule, FormCrafterComponentProps, MaskOptions } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
-import IMask from 'imask'
-import { forwardRef, memo, useMemo } from 'react'
+import { maskitoTimeOptionsGenerator } from '@maskito/kit'
+import { forwardRef, memo } from 'react'
 
 import { GeneralMaskInput } from '_components'
 
 import { inputModule } from '../Input'
 
 const { Component: Input } = inputModule
+
+const maskOptions = maskitoTimeOptionsGenerator({
+    mode: 'HH:MM',
+})
 
 const optionsBuilder = builders.group({
     value: builders.input().label('Значение').nullable(),
@@ -21,31 +25,6 @@ type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
 
 const TimeInput = memo(
     forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { showMask, ...properties }, ...props }, ref) => {
-        const maskOptions: MaskOptions = useMemo(
-            () => ({
-                mask: 'HH:mm',
-                autofix: true,
-                lazy: !showMask,
-                blocks: {
-                    HH: {
-                        mask: IMask.MaskedRange,
-                        from: 0,
-                        to: 23,
-                        maxLength: 2,
-                        autofix: 'pad',
-                    },
-                    mm: {
-                        mask: IMask.MaskedRange,
-                        from: 0,
-                        to: 59,
-                        maxLength: 2,
-                        autofix: 'pad',
-                    },
-                },
-            }),
-            [showMask],
-        )
-
         return (
             <GeneralMaskInput
                 ref={ref}

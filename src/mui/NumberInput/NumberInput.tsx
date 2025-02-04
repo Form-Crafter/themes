@@ -1,6 +1,7 @@
 import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
-import { forwardRef, memo, useMemo } from 'react'
+import { maskitoNumberOptionsGenerator } from '@maskito/kit'
+import { forwardRef, memo } from 'react'
 
 import { GeneralMaskInput } from '_components'
 
@@ -8,8 +9,13 @@ import { inputModule } from '../Input'
 
 const { Component: Input } = inputModule
 
+const maskOptions = maskitoNumberOptionsGenerator({
+    decimalSeparator: ',',
+    thousandSeparator: '.',
+    precision: 2,
+})
+
 const optionsBuilder = builders.group({
-    mask: builders.input().label('Маска').required(),
     value: builders.input().label('Значение').nullable(),
     label: builders.input().label('Название'),
     placeholder: builders.input().label('Название'),
@@ -18,10 +24,8 @@ const optionsBuilder = builders.group({
 
 type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
 
-const MaskInput = memo(
-    forwardRef<HTMLInputElement, ComponentProps>(({ properties: { mask, ...properties }, meta, ...props }, ref) => {
-        const maskOptions = useMemo(() => ({ mask, returnMaskedValue: true }), [mask])
-
+const NumberInput = memo(
+    forwardRef<HTMLInputElement, ComponentProps>(({ properties, meta, ...props }, ref) => {
         return (
             <GeneralMaskInput
                 ref={ref}
@@ -35,12 +39,12 @@ const MaskInput = memo(
     }),
 )
 
-MaskInput.displayName = 'MaskInput'
+NumberInput.displayName = 'NumberInput'
 
-export const maskInputModule = createComponentModule({
-    name: 'mask-input',
-    label: 'Mask Input',
+export const numberInputModule = createComponentModule({
+    name: 'number-input',
+    label: 'Number input',
     type: 'base',
     optionsBuilder,
-    Component: MaskInput,
+    Component: NumberInput,
 })

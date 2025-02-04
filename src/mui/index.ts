@@ -11,8 +11,8 @@ import { dateInputModule } from './DateInput'
 import { emailModule } from './Email'
 import { groupModule } from './Group'
 import { inputModule } from './Input'
-import { maskInputModule } from './MaskInput'
 import { multifieldModule } from './Multifield'
+import { numberInputModule } from './NumberInput'
 import { radioModule } from './Radio'
 import { selectModule } from './Select'
 import { textModule } from './Text'
@@ -26,7 +26,7 @@ export const muiTheme: ComponentModule[] = [
     emailModule,
     groupModule,
     inputModule,
-    maskInputModule,
+    numberInputModule,
     multifieldModule,
     radioModule,
     selectModule,

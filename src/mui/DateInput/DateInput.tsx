@@ -1,6 +1,6 @@
 import { createComponentModule, FormCrafterComponentProps, MaskOptions } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
-import IMask from 'imask'
+import { MaskitoDateMode, maskitoDateOptionsGenerator } from '@maskito/kit'
 import { forwardRef, memo, useMemo } from 'react'
 
 import { GeneralMaskInput } from '_components'
@@ -9,14 +9,23 @@ import { inputModule } from '../Input'
 
 const { Component: Input } = inputModule
 
-const defaultPattern = 'DD.MM.YYYY'
+const defaultMode: MaskitoDateMode = 'dd/mm/yyyy'
 
 const optionsBuilder = builders.group({
     value: builders.date().label('Значение').nullable(),
     label: builders.input().label('Название'),
     placeholder: builders.input().label('Название'),
     disabled: builders.checkbox().label('Блокировка ввода'),
-    pattern: builders.input().label('Формат даты').default(defaultPattern),
+    pattern: builders
+        .select()
+        .options([
+            {
+                value: defaultMode,
+                label: defaultMode,
+            },
+        ])
+        .label('Формат даты')
+        .default(defaultMode),
     showMask: builders.checkbox().label('Показывать маску').checked(false),
 })
 
@@ -25,34 +34,10 @@ type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
 const DateInput = memo(
     forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { pattern, showMask, ...properties }, ...props }, ref) => {
         const maskOptions: MaskOptions = useMemo(
-            () => ({
-                mask: Date,
-                pattern: pattern || defaultPattern,
-                min: new Date(1900, 0, 1),
-                max: new Date(2100, 0, 1),
-                blocks: {
-                    DD: {
-                        mask: IMask.MaskedRange,
-                        from: 1,
-                        to: 31,
-                        maxLength: 2,
-                        autofix: 'pad',
-                    },
-                    MM: {
-                        mask: IMask.MaskedRange,
-                        from: 1,
-                        to: 12,
-                        maxLength: 2,
-                        autofix: 'pad',
-                    },
-                    YYYY: {
-                        mask: IMask.MaskedRange,
-                        from: 1900,
-                        to: 2150,
-                        autofix: true,
-                    },
-                },
-            }),
+            () =>
+                maskitoDateOptionsGenerator({
+                    mode: (pattern as MaskitoDateMode) || defaultMode,
+                }),
             [pattern],
         )
 
