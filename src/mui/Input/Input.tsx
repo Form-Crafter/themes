@@ -14,10 +14,11 @@ type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
 
 const Input = memo(
     forwardRef<HTMLInputElement, ComponentProps>(({ meta, properties: { value, placeholder, label, disabled }, onChangeProperties }, ref) => {
+        const finalValue = value || ''
         return (
             <TextField
                 inputRef={ref}
-                value={value}
+                value={finalValue}
                 name={meta.formKey}
                 disabled={disabled}
                 label={label}

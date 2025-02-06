@@ -1,4 +1,4 @@
-import { ComponentId, createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Maybe } from '@form-crafter/utils'
 import { Box, Button, Typography } from '@mui/material'
@@ -15,37 +15,32 @@ type ComponentProps = FormCrafterComponentProps<'dynamic-container', typeof opti
 
 const Multifield = memo(
     forwardRef<HTMLDivElement, ComponentProps>(
-        ({ GridComponent, ResolverComponent, onAddGroup, children, onRemoveGroup, properties: { title, addButtonText } }, ref) => {
+        ({ GridComponent, ResolverComponent, onAddChild, onRemoveChild, children, properties: { title, addButtonText } }, ref) => {
             const finalAddButtonText = addButtonText || initialAddButtonText
 
             const renderTitle = useCallback(
-                ({ id, index, title }: { id: ComponentId; index: number; title: Maybe<string> }) => (
+                ({ index, title }: { index: number; title: Maybe<string> }) => (
                     <Box gap={2} display="flex" justifyContent="space-between">
                         {title && (
                             <Typography variant="h6">
                                 {title} {index + 1}
                             </Typography>
                         )}
-                        <Button onClick={() => onRemoveGroup({ groupId: id })}>Remove</Button>
+                        <Button onClick={() => onRemoveChild({ index })}>Remove</Button>
                     </Box>
                 ),
-                [onRemoveGroup],
+                [onRemoveChild],
             )
 
             return (
                 <Box ref={ref} gap={4}>
                     <Box gap={2} display="flex" justifyContent="space-between">
                         {title && <Typography variant="h5">{title}</Typography>}
-                        <Button onClick={onAddGroup}>{finalAddButtonText}</Button>
+                        <Button onClick={onAddChild}>{finalAddButtonText}</Button>
                     </Box>
                     <GridComponent viewTree={children}>
-                        {(componentSchema, index) => (
-                            <ResolverComponent
-                                {...componentSchema}
-                                // TODO remove this and impl hooks for get self index and parent
-                                renderTitle={({ title }: any) => renderTitle({ id: componentSchema.componentId, index, title })}
-                            />
-                        )}
+                        {/* TODO remove this */}
+                        {(componentSchema, index) => <ResolverComponent {...componentSchema} renderTitle={({ title }: any) => renderTitle({ index, title })} />}
                     </GridComponent>
                 </Box>
             )
