@@ -1,5 +1,6 @@
-import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
+import { isNotEmpty } from '@form-crafter/utils'
 import { Box, Typography } from '@mui/material'
 import { forwardRef, memo } from 'react'
 
@@ -7,14 +8,14 @@ const optionsBuilder = builders.group({
     title: builders.input().label('Заголовок').nullable(),
 })
 
-type ComponentProps = FormCrafterComponentProps<'container', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'container', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Group = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ renderTitle, children, GridComponent, properties: { title } }, ref) => {
+    forwardRef<HTMLDivElement, ComponentProps>(({ renderTitle, GridComponent, childNodes, meta, properties }, ref) => {
         return (
             <Box ref={ref} gap={2}>
-                {renderTitle?.({ title }) || <Typography variant="h6">{title}</Typography>}
-                <GridComponent viewTree={children} />
+                {renderTitle?.({ meta, properties }) || <Typography variant="h6">{properties.title}</Typography>}
+                {isNotEmpty(childNodes) && <GridComponent childNodes={childNodes} />}
             </Box>
         )
     }),

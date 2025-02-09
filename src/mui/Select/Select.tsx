@@ -1,11 +1,11 @@
-import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { FormControl, InputLabel, ListItemText, MenuItem, Select as SelectBase } from '@mui/material'
 import { SelectInputProps } from '@mui/material/Select/SelectInput'
 import { forwardRef, memo, useCallback } from 'react'
 
 const optionsBuilder = builders.group({
-    values: builders
+    value: builders
         .multiSelect()
         .options([
             {
@@ -17,18 +17,19 @@ const optionsBuilder = builders.group({
                 value: 'female',
             },
         ])
+        .required()
         .nullable(),
     label: builders.input().label('Название'),
     placeholder: builders.input().label('Название'),
     disabled: builders.checkbox().label('Блокировка ввода'),
     options: builders
         .multifield({
-            label: builders.input().label('Название').required().default('Например'),
-            value: builders.input().label('Значение').required().default('value'),
+            label: builders.input().label('Название').required().value('Например'),
+            value: builders.input().label('Значение').required().value('value'),
         })
         .required()
         .label('Список опций')
-        .default([
+        .value([
             {
                 label: 'Мужской',
                 value: 'male',
@@ -40,14 +41,14 @@ const optionsBuilder = builders.group({
         ]),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Select = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { options, values, placeholder, label, disabled }, onChangeProperties }, ref) => {
+    forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { options, value, placeholder, label, disabled }, onChangeProperties }, ref) => {
         const handleChange = useCallback<Required<SelectInputProps<string[]>>['onChange']>(
             ({ target: { value } }) => {
                 const finalValues = Array.isArray(value) ? value : [value]
-                onChangeProperties({ values: finalValues })
+                onChangeProperties({ value: finalValues })
             },
             [onChangeProperties],
         )
@@ -58,7 +59,7 @@ const Select = memo(
                 <SelectBase
                     multiple
                     name={meta.formKey}
-                    value={values || []}
+                    value={value || []}
                     renderValue={(selected) => selected.join(', ')}
                     placeholder={placeholder}
                     disabled={disabled}

@@ -1,4 +1,4 @@
-import { createComponentModule, FormCrafterComponentProps, MaskOptions } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, MaskOptions, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { MaskitoDateMode, maskitoDateOptionsGenerator } from '@maskito/kit'
 import { forwardRef, memo, useMemo } from 'react'
@@ -12,7 +12,7 @@ const { Component: Input } = inputModule
 const defaultMode: MaskitoDateMode = 'dd/mm/yyyy'
 
 const optionsBuilder = builders.group({
-    value: builders.date().label('Значение').nullable(),
+    value: builders.date().label('Значение').required().nullable(),
     label: builders.input().label('Название'),
     placeholder: builders.input().label('Название'),
     disabled: builders.checkbox().label('Блокировка ввода'),
@@ -25,11 +25,11 @@ const optionsBuilder = builders.group({
             },
         ])
         .label('Формат даты')
-        .default(defaultMode),
-    showMask: builders.checkbox().label('Показывать маску').checked(false),
+        .value(defaultMode),
+    showMask: builders.checkbox().label('Показывать маску').value(false),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const DateInput = memo(
     forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { pattern, showMask, ...properties }, ...props }, ref) => {

@@ -19,7 +19,7 @@ import { textModule } from './Text'
 import { textareaModule } from './Textarea'
 import { timeInputModule } from './TimeInput'
 
-export const muiTheme: ComponentModule[] = [
+export const muiTheme = [
     buttonModule,
     checkboxModule,
     dateInputModule,
@@ -33,4 +33,4 @@ export const muiTheme: ComponentModule[] = [
     textModule,
     textareaModule,
     timeInputModule,
-]
+] as ComponentModule[]

@@ -1,16 +1,16 @@
-import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { forwardRef, memo } from 'react'
 
 const optionsBuilder = builders.group({
-    text: builders.textarea().label('Текст'),
+    value: builders.textarea().required().label('Текст'),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Text = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ properties: { text } }, ref) => {
-        return <div ref={ref}>{text}</div>
+    forwardRef<HTMLDivElement, ComponentProps>(({ properties: { value } }, ref) => {
+        return <div ref={ref}>{value}</div>
     }),
 )
 

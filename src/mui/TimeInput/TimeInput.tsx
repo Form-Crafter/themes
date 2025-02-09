@@ -1,4 +1,4 @@
-import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { maskitoTimeOptionsGenerator } from '@maskito/kit'
 import { forwardRef, memo } from 'react'
@@ -14,14 +14,14 @@ const maskOptions = maskitoTimeOptionsGenerator({
 })
 
 const optionsBuilder = builders.group({
-    value: builders.input().label('Значение').nullable(),
+    value: builders.input().label('Значение').required().nullable(),
     label: builders.input().label('Название'),
     placeholder: builders.input().label('Название'),
     disabled: builders.checkbox().label('Блокировка ввода'),
-    showMask: builders.checkbox().label('Показывать маску').checked(false),
+    showMask: builders.checkbox().label('Показывать маску').value(false),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const TimeInput = memo(
     forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { showMask, ...properties }, ...props }, ref) => {

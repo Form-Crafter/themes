@@ -1,9 +1,9 @@
 import { BaseComponentProps, MaskOptions } from '@form-crafter/core'
-import { useCombinedRefs } from '@form-crafter/utils'
+import { isNotNull, isNotUndefined, useCombinedRefs } from '@form-crafter/utils'
 import { useMaskito } from '@maskito/react'
 import { FC, ForwardedRef, forwardRef, ReactNode, RefAttributes, useCallback, useState } from 'react'
 
-type InheritedComponent = FC<BaseComponentProps<{ value?: any }>>
+type InheritedComponent = FC<BaseComponentProps<{ value: any }>>
 
 type Props<T extends InheritedComponent> = Parameters<T>[0] & {
     Component: FC<Parameters<T>[0]>
@@ -22,7 +22,7 @@ const GeneralMaskInputBase = <T extends InheritedComponent>(
 
     const handleChange = useCallback<typeof onChangeProperties>(
         ({ value, ...params }) => {
-            if (value !== undefined) {
+            if (isNotUndefined(value) && isNotNull(value)) {
                 setMaskedValue(value)
             }
             if (Object.keys(params).length > 0) {

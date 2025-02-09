@@ -1,4 +1,4 @@
-import { createComponentModule, FormCrafterComponentProps } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { Box, FormControl, FormControlLabel, FormLabel, Radio as RadioBase } from '@mui/material'
 import { forwardRef, memo } from 'react'
@@ -18,15 +18,16 @@ const optionsBuilder = builders.group({
                 value: 'female',
             },
         ])
+        .required()
         .nullable(),
     options: builders
         .multifield({
-            label: builders.input().label('Название').required().default('Например'),
-            value: builders.input().label('Значение').required().default('value'),
+            label: builders.input().label('Название').required().value('Например'),
+            value: builders.input().label('Значение').required().value('value'),
         })
         .required()
         .label('Список опций')
-        .default([
+        .value([
             {
                 label: 'Мужской',
                 value: 'male',
@@ -38,7 +39,7 @@ const optionsBuilder = builders.group({
         ]),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Radio = memo(
     forwardRef<HTMLDivElement, ComponentProps>(({ meta, properties: { options, value, label, disabled }, onChangeProperties }, ref) => {

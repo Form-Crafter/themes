@@ -1,4 +1,4 @@
-import { createComponentModule, FormCrafterComponentProps, SelectionOption } from '@form-crafter/core'
+import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput, SelectionOption } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { toggleArrItem } from '@form-crafter/utils'
 import { Box, Checkbox as CheckboxBase, FormControl, FormControlLabel, FormLabel } from '@mui/material'
@@ -7,7 +7,7 @@ import { forwardRef, memo, useCallback } from 'react'
 const optionsBuilder = builders.group({
     label: builders.input().label('Название'),
     disabled: builders.checkbox().label('Блокировка ввода'),
-    values: builders
+    value: builders
         .multiSelect()
         .options([
             {
@@ -19,15 +19,16 @@ const optionsBuilder = builders.group({
                 value: 'female',
             },
         ])
+        .required()
         .nullable(),
     options: builders
         .multifield({
-            label: builders.input().label('Название').required().default('Например'),
-            value: builders.input().label('Значение').required().default('value'),
+            label: builders.input().label('Название').required().value('Например'),
+            value: builders.input().label('Значение').required().value('value'),
         })
         .required()
         .label('Список опций')
-        .default([
+        .value([
             {
                 label: 'Мужской',
                 value: 'male',
@@ -39,18 +40,18 @@ const optionsBuilder = builders.group({
         ]),
 })
 
-type ComponentProps = FormCrafterComponentProps<'base', typeof optionsBuilder>
+type ComponentProps = FormCrafterComponentProps<'base', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Checkbox = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ properties: { options, values, label, disabled }, onChangeProperties }, ref) => {
-        const isChecked = useCallback((option: Pick<SelectionOption, 'value'>) => (values?.length ? values.includes(option.value) : false), [values])
+    forwardRef<HTMLDivElement, ComponentProps>(({ properties: { options, value, label, disabled }, onChangeProperties }, ref) => {
+        const isChecked = useCallback((option: Pick<SelectionOption, 'value'>) => (value?.length ? value.includes(option.value) : false), [value])
 
         const hanleChange = useCallback(
             (valueToChange: SelectionOption['value']) => {
-                const finalValues = toggleArrItem(values || [], valueToChange)
-                onChangeProperties({ values: finalValues })
+                const finalValues = toggleArrItem(value || [], valueToChange)
+                onChangeProperties({ value: finalValues })
             },
-            [values, onChangeProperties],
+            [value, onChangeProperties],
         )
 
         return (
@@ -87,7 +88,3 @@ export const checkboxModule = createComponentModule({
     optionsBuilder,
     Component: Checkbox,
 })
-
-// TODO
-// Придумать механизм подклчения/переопределния комопнентов
-// Подключить в generator и продолжить прибирать ошибки tsc
