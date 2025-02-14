@@ -11,11 +11,11 @@ const optionsBuilder = builders.group({
 type ComponentProps = FormCrafterComponentProps<'container', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Group = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(({ renderTitle, GridComponent, childNodes, meta, properties }, ref) => {
+    forwardRef<HTMLDivElement, ComponentProps>(({ renderTitle, RowsList, rows, meta, properties }, ref) => {
         return (
             <Box ref={ref} gap={2}>
                 {renderTitle?.({ meta, properties }) || <Typography variant="h6">{properties.title}</Typography>}
-                {isNotEmpty(childNodes) && <GridComponent childNodes={childNodes} />}
+                {isNotEmpty(rows) && <RowsList rows={rows} />}
             </Box>
         )
     }),

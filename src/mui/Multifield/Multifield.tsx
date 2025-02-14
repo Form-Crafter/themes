@@ -1,4 +1,4 @@
-import { ContainerComponentProps, createComponentModule, FormCrafterComponentProps, GridComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
+import { ContainerComponentProps, createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput } from '@form-crafter/core'
 import { builders } from '@form-crafter/options-builder'
 import { isNotEmpty } from '@form-crafter/utils'
 import { Box, Button, Typography } from '@mui/material'
@@ -16,40 +16,40 @@ const optionsBuilder = builders.group({
 type ComponentProps = FormCrafterComponentProps<'dynamic-container', OptionsBuilderOutput<typeof optionsBuilder>>
 
 const Multifield = memo(
-    forwardRef<HTMLDivElement, ComponentProps>(
-        ({ GridComponent, ResolverContainer, onAddChild, onRemoveChild, childNodes, properties: { title, addButtonText } }, ref) => {
-            const finalAddButtonText = addButtonText || initialAddButtonText
+    forwardRef<HTMLDivElement, ComponentProps>(({ RowsList, rows, onAddChild, onRemoveChild, properties: { title, addButtonText } }, ref) => {
+        const finalAddButtonText = addButtonText || initialAddButtonText
 
-            const renderTitle = useCallback(
-                ({ properties }: RenderTitleParams, index: number) => (
-                    <Box gap={2} display="flex" justifyContent="space-between">
-                        {isNotEmpty(properties.title) && (
-                            <Typography variant="h6">
-                                {properties.title} {index + 1}
-                            </Typography>
-                        )}
-                        <Button onClick={() => onRemoveChild({ index })}>Remove</Button>
-                    </Box>
-                ),
-                [onRemoveChild],
-            )
-
-            const renderChild = useCallback<Required<GridComponentProps>['renderChild']>(
-                (childNode, index) => <ResolverContainer {...childNode} renderTitle={(params) => renderTitle(params, index)} />,
-                [ResolverContainer, renderTitle],
-            )
-
-            return (
-                <Box ref={ref} gap={4}>
-                    <Box gap={2} display="flex" justifyContent="space-between">
-                        {title && <Typography variant="h5">{title}</Typography>}
-                        <Button onClick={onAddChild}>{finalAddButtonText}</Button>
-                    </Box>
-                    {isNotEmpty(childNodes) && <GridComponent childNodes={childNodes} renderChild={renderChild} />}
+        const renderTitle = useCallback(
+            ({ properties }: RenderTitleParams, index: number) => (
+                <Box gap={2} display="flex" justifyContent="space-between">
+                    {isNotEmpty(properties.title) && (
+                        <Typography variant="h6">
+                            {properties.title} {index + 1}
+                        </Typography>
+                    )}
+                    <Button onClick={() => onRemoveChild({ rowId: '' })}>Remove</Button>
                 </Box>
-            )
-        },
-    ),
+            ),
+            [onRemoveChild],
+        )
+
+        console.log('renderTitle: ', renderTitle)
+
+        // const renderChild = useCallback<Required<GridComponentProps>['renderChild']>(
+        //     (childNode, index) => <ResolverContainer {...childNode} renderTitle={(params) => renderTitle(params, index)} />,
+        //     [ResolverContainer, renderTitle],
+        // )
+
+        return (
+            <Box ref={ref} gap={4}>
+                <Box gap={2} display="flex" justifyContent="space-between">
+                    {title && <Typography variant="h5">{title}</Typography>}
+                    <Button onClick={onAddChild}>{finalAddButtonText}</Button>
+                </Box>
+                {isNotEmpty(rows) && <RowsList rows={rows} />}
+            </Box>
+        )
+    }),
 )
 
 Multifield.displayName = 'Multifield'
