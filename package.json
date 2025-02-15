@@ -46,10 +46,10 @@
     "vite-plugin-dts": "^4.5.0"
   },
   "peerDependencies": {
+    "@form-crafter/core": ">=0.1.30",
+    "@form-crafter/generator": ">=0.0.8",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@form-crafter/core": ">=0.1.29",
-    "@form-crafter/generator": ">=0.0.5"
+    "react-dom": "^18.3.1"
   },
   "prettier": "@form-crafter/dev-configs/dist/prettier.json"
 }
