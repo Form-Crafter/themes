@@ -28,7 +28,6 @@
     "@emotion/styled": "^11.11.5",
     "@fontsource/roboto": "^5.0.13",
     "@form-crafter/core": "^0.1.29",
-    "@form-crafter/generator": "^0.0.4",
     "@form-crafter/options-builder": "^0.0.11",
     "@form-crafter/utils": "^0.0.21",
     "@maskito/kit": "^3.2.1",
@@ -45,7 +44,8 @@
     "sass": "^1.77.8",
     "typescript": "~5.6.2",
     "vite": "^6.0.5",
-    "vite-plugin-dts": "^4.5.0"
+    "vite-plugin-dts": "^4.5.0",
+    "@form-crafter/generator": ">=0.0.5"
   },
   "peerDependencies": {
     "react": "^18.3.1",
