@@ -2,9 +2,10 @@ import { createComponentModule, FormCrafterComponentProps, OptionsBuilderOutput 
 import { RowsList, useIsDynamicContainer } from '@form-crafter/generator'
 import { builders } from '@form-crafter/options-builder'
 import { isNotEmpty } from '@form-crafter/utils'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { forwardRef, memo } from 'react'
 
+import { Title } from '../Title'
 import { TopLevelContainerHeader } from './TopLevelContainerHeader'
 
 const optionsBuilder = builders.group({
@@ -20,7 +21,7 @@ const Group = memo(
         const header = isTopLevelContainer ? (
             <TopLevelContainerHeader {...props} title={properties.title} />
         ) : (
-            isNotEmpty(properties.title) && <Typography variant="h6">{properties.title}</Typography>
+            isNotEmpty(properties.title) && <Title id={props.id}>{properties.title}</Title>
         )
 
         return (
